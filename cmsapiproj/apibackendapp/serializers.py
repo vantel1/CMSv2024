@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Patient, MedicineStock, Medicine
+from .models import MedicinePrescription, LabTestPrescription
 
 class PatientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +16,15 @@ class MedicineSerializer(serializers.ModelSerializer):
     class Meta :
         model = Medicine
         fields = '__all__'
+
+
+class MedicinePrescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MedicinePrescription
+        fields = '__all__'
+
+
+class LabTestPrescriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LabTestPrescription
+        fields = ("AppointmentId", "LabTestId", "LabTestValue", "Remarks")
