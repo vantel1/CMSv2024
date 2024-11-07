@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework import filters
 
 from .models import Patient, MedicineStock, Medicine
 from .serializers import PatientSerializer, MedicineStockSerializer, MedicineSerializer
@@ -8,7 +9,8 @@ from .models import MedicinePrescription, LabTestPrescription
 from .serializers import MedicinePrescriptionSerializer, LabTestPrescriptionSerializer
 from .models import Consultation
 from .serializers import ConsultationSerializer
-
+from .models import LabTest
+from .serializers import LabTestSerializer
 # Create your views here.
 class PatientViewSet(viewsets.ModelViewSet):
     permission_classes = [ AllowAny ]
@@ -96,3 +98,8 @@ class ConsultationViewSet(viewsets.ModelViewSet):
             "message": "Consultation note added successfully"
         }, status=status.HTTP_201_CREATED)
 
+class LabTestViewSet(viewsets.ModelViewSet):
+    queryset = LabTest.objects.all()
+    serializer_class = LabTestSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['LabTestId']
