@@ -8,5 +8,7 @@ router.register(r'inventory/medicine', views.MedicineStockViewSet)
 router.register(r'medicines', views.MedicineViewSet)
 router.register(r"prescriptions/medicine", views.MedicinePrescriptionViewSet)
 router.register(r"prescriptions/labtest", views.LabTestPrescriptionViewSet)
+router.register(r'consultations', views.ConsultationViewSet)
+
 
 urlpatterns = router.urls

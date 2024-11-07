@@ -6,6 +6,8 @@ from .models import Patient, MedicineStock, Medicine
 from .serializers import PatientSerializer, MedicineStockSerializer, MedicineSerializer
 from .models import MedicinePrescription, LabTestPrescription
 from .serializers import MedicinePrescriptionSerializer, LabTestPrescriptionSerializer
+from .models import Consultation
+from .serializers import ConsultationSerializer
 
 # Create your views here.
 class PatientViewSet(viewsets.ModelViewSet):
@@ -79,3 +81,18 @@ class LabTestPrescriptionViewSet(viewsets.ModelViewSet):
             {"message": "Lab Test Prescription updated successfully."},
             status=status.HTTP_200_OK,
         )
+    
+
+class ConsultationViewSet(viewsets.ModelViewSet):
+    permission_classes = [ AllowAny ]
+
+    queryset = Consultation.objects.all()
+    serializer_class = ConsultationSerializer
+    def create(self, req):
+        serializer = ConsultationSerializer(data = req.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response({
+            "message": "Consultation note added successfully"
+        }, status=status.HTTP_201_CREATED)
+
